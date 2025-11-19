@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Smart Productivity Suite - Student Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar navigation -->
+    <nav class="sidebar">
+      <div class="brand">
+        <h2>📚 StudySuite</h2>
+        <button id="theme-toggle" class="theme-btn" title="Toggle dark mode">🌙</button>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="#" data-view="dashboard" class="nav-link active">📊 Dashboard</a></li>
+        <li><a href="#" data-view="tasks" class="nav-link">✅ Tasks</a></li>
+        <li><a href="#" data-view="pomodoro" class="nav-link">🍅 Pomodoro</a></li>
+        <li><a href="#" data-view="habits" class="nav-link">🎯 Habits</a></li>
+        <li><a href="#" data-view="notes" class="nav-link">📝 Notes</a></li>
+        <li><a href="#" data-view="timetable" class="nav-link">📅 Timetable</a></li>
+      </ul>
+    </nav>
+
+    <!-- Main content area -->
+    <main class="main-content">
+      
+      <!-- Dashboard View -->
+      <section id="view-dashboard" class="view active">
+        <header class="view-header">
+          <h1>Dashboard</h1>
+          <p class="subtitle">Your productivity at a glance</p>
+        </header>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">✅</div>
+            <div class="stat-value" id="stat-tasks">0</div>
+            <div class="stat-label">Tasks Completed</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🍅</div>
+            <div class="stat-value" id="stat-pomodoros">0</div>
+            <div class="stat-label">Pomodoros Today</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🎯</div>
+            <div class="stat-value" id="stat-streak">0</div>
+            <div class="stat-label">Habit Streak</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📝</div>
+            <div class="stat-value" id="stat-notes">0</div>
+            <div class="stat-label">Notes Created</div>
+          </div>
+        </div>
+        <div class="charts-container">
+          <div class="chart-card">
+            <h3>Weekly Task Completion</h3>
+            <canvas id="taskChart"></canvas>
+          </div>
+          <div class="chart-card">
+            <h3>Pomodoro Sessions (Last 7 Days)</h3>
+            <canvas id="pomodoroChart"></canvas>
+          </div>
+        </div>
+        <div class="dashboard-recent">
+          <h3>Recent Activity</h3>
+          <div id="recent-activity" class="activity-list"></div>
+        </div>
+      </section>
+
+      <!-- Tasks View -->
+      <section id="view-tasks" class="view">
+        <header class="view-header">
+          <h1>Tasks</h1>
+          <p class="subtitle">Manage assignments, exams, and projects</p>
+        </header>
+        <div class="task-form">
+          <input id="task-input" type="text" placeholder="Add a new task..." />
+          <input id="task-due" type="date" />
+          <select id="task-category">
+            <option value="Assignment">Assignment</option>
+            <option value="Exam">Exam</option>
+            <option value="Project">Project</option>
+          </select>
+          <button id="add-task-btn">Add</button>
+        </div>
+        <div class="filters">
+          <select id="filter-status">
+            <option value="all">All</option>
+            <option value="active">Active</option>
+            <option value="completed">Completed</option>
+          </select>
+          <select id="filter-category">
+            <option value="all">All Categories</option>
+            <option value="Assignment">Assignment</option>
+            <option value="Exam">Exam</option>
+            <option value="Project">Project</option>
+          </select>
+        </div>
+        <div id="task-list" class="task-list"></div>
+      </section>
+
+      <!-- Pomodoro View -->
+      <section id="view-pomodoro" class="view">
+        <header class="view-header">
+          <h1>Pomodoro Timer</h1>
+          <p class="subtitle">Focus sessions with breaks</p>
+        </header>
+        <div class="notification-request" id="notification-request">
+          <p>📢 Enable notifications to get alerts when your Pomodoro sessions complete!</p>
+          <button id="enable-notifications">Enable Notifications</button>
+        </div>
+        <div class="pomodoro-container">
+          <div class="timer-display" id="timer-display">25:00</div>
+          <div class="timer-label" id="timer-label">Focus Time</div>
+          <div class="timer-controls">
+            <button id="timer-start" class="btn-primary">Start</button>
+            <button id="timer-pause" class="btn-secondary" disabled>Pause</button>
+            <button id="timer-reset" class="btn-secondary">Reset</button>
+          </div>
+          <div class="pomodoro-settings">
+            <label>Focus (min): <input id="focus-time" type="number" value="25" min="1" max="60" /></label>
+            <label>Break (min): <input id="break-time" type="number" value="5" min="1" max="30" /></label>
+          </div>
+          <div class="pomodoro-stats">
+            <p>Sessions today: <strong id="sessions-today">0</strong></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Habits View -->
+      <section id="view-habits" class="view">
+        <header class="view-header">
+          <h1>Habit Tracker</h1>
+          <p class="subtitle">Build consistency with daily routines</p>
+        </header>
+        <div class="habit-form">
+          <input id="habit-input" type="text" placeholder="New habit (e.g., Morning workout)" />
+          <button id="add-habit-btn">Add Habit</button>
+        </div>
+        <div id="habit-list" class="habit-list"></div>
+      </section>
+
+      <!-- Notes View -->
+      <section id="view-notes" class="view">
+        <header class="view-header">
+          <h1>Notes</h1>
+          <p class="subtitle">Keep your study notes organized</p>
+        </header>
+        <div class="notes-form">
+          <input id="note-title" type="text" placeholder="Note title..." />
+          <textarea id="note-content" placeholder="Write your note here..." rows="6"></textarea>
+          <button id="add-note-btn">Save Note</button>
+        </div>
+        <div id="notes-list" class="notes-list"></div>
+      </section>
+
+      <!-- Timetable View -->
+      <section id="view-timetable" class="view">
+        <header class="view-header">
+          <h1>Study Timetable</h1>
+          <p class="subtitle">Plan your weekly schedule</p>
+        </header>
+        <div class="timetable-form">
+          <select id="tt-day">
+            <option>Monday</option>
+            <option>Tuesday</option>
+            <option>Wednesday</option>
+            <option>Thursday</option>
+            <option>Friday</option>
+            <option>Saturday</option>
+            <option>Sunday</option>
+          </select>
+          <input id="tt-time" type="time" />
+          <input id="tt-subject" type="text" placeholder="Subject/Activity" />
+          <button id="add-tt-btn">Add</button>
+        </div>
+        <div id="timetable-list" class="timetable-list"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

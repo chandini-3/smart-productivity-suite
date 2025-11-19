@@ -1,0 +1,261 @@
+/* Smart Productivity Suite - Professional Styles with Dark Mode */
+:root{
+  --bg:#f8fafc;
+  --card:#ffffff;
+  --sidebar:#1e293b;
+  --muted:#64748b;
+  --accent:#3b82f6;
+  --success:#10b981;
+  --danger:#ef4444;
+  --warning:#f59e0b;
+  --border:#e2e8f0;
+  --text:#0f172a;
+  --chart-bg:#ffffff;
+}
+body.dark-mode{
+  --bg:#0f172a;
+  --card:#1e293b;
+  --sidebar:#0a0f1e;
+  --muted:#94a3b8;
+  --border:#334155;
+  --text:#f1f5f9;
+  --chart-bg:#1e293b;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  transition:background 0.3s, color 0.3s;
+}
+.app-container{display:flex;height:100vh}
+
+/* Sidebar */
+.sidebar{
+  width:240px;
+  background:var(--sidebar);
+  color:#fff;
+  display:flex;
+  flex-direction:column;
+  padding:20px 0;
+}
+.brand{padding:0 20px 20px;border-bottom:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-between;align-items:center}
+.brand h2{font-size:18px;font-weight:700}
+.theme-btn{
+  background:rgba(255,255,255,0.1);
+  border:0;
+  color:#fff;
+  padding:8px 12px;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:16px;
+  transition:all 0.2s;
+}
+.theme-btn:hover{background:rgba(255,255,255,0.2)}
+.nav-menu{list-style:none;padding:20px 0}
+.nav-link{
+  display:block;
+  padding:12px 20px;
+  color:rgba(255,255,255,0.7);
+  text-decoration:none;
+  transition:all 0.2s;
+}
+.nav-link:hover{background:rgba(255,255,255,0.05);color:#fff}
+.nav-link.active{background:rgba(59,130,246,0.2);color:#fff;border-left:3px solid var(--accent)}
+
+/* Main content */
+.main-content{
+  flex:1;
+  overflow-y:auto;
+  padding:40px;
+}
+.view{display:none}
+.view.active{display:block}
+.view-header{margin-bottom:24px}
+.view-header h1{font-size:28px;margin-bottom:4px}
+.subtitle{color:var(--muted);font-size:14px}
+
+/* Dashboard */
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:16px;
+  margin-bottom:32px;
+}
+.stat-card{
+  background:var(--card);
+  border-radius:12px;
+  padding:20px;
+  box-shadow:0 1px 3px rgba(0,0,0,0.1);
+  text-align:center;
+}
+.stat-icon{font-size:32px;margin-bottom:8px}
+.stat-value{font-size:28px;font-weight:700;color:var(--accent)}
+.stat-label{font-size:13px;color:var(--muted);margin-top:4px}
+.dashboard-recent h3{margin-bottom:16px;font-size:18px}
+.activity-list{background:var(--card);border-radius:12px;padding:20px;box-shadow:0 1px 3px rgba(0,0,0,0.1)}
+
+/* Charts */
+.charts-container{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:20px;
+  margin-bottom:32px;
+}
+.chart-card{
+  background:var(--card);
+  border-radius:12px;
+  padding:20px;
+  box-shadow:0 1px 3px rgba(0,0,0,0.1);
+}
+.chart-card h3{font-size:16px;margin-bottom:16px;color:var(--text)}
+.chart-card canvas{max-height:250px}
+
+/* Notification banner */
+.notification-request{
+  background:var(--card);
+  border:2px solid var(--accent);
+  border-radius:12px;
+  padding:16px;
+  margin-bottom:20px;
+  text-align:center;
+}
+.notification-request p{margin-bottom:12px;color:var(--text)}
+.notification-request button{
+  background:var(--accent);
+  color:#fff;
+  border:0;
+  padding:10px 20px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+}
+.notification-request.hidden{display:none}
+
+/* Forms */
+.task-form,.habit-form,.notes-form,.timetable-form{
+  background:var(--card);
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0 1px 3px rgba(0,0,0,0.1);
+  margin-bottom:20px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.task-form input,.habit-form input,.notes-form input,.timetable-form input,.timetable-form select{
+  padding:10px 12px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  font-size:14px;
+}
+#task-input,#habit-input,#note-title{flex:1;min-width:200px}
+#note-content{width:100%;padding:12px;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:14px}
+select{padding:10px;border:1px solid var(--border);border-radius:8px;font-size:14px}
+button{
+  background:var(--accent);
+  color:#fff;
+  padding:10px 16px;
+  border:0;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+  font-size:14px;
+}
+button:hover{opacity:0.9}
+.btn-secondary{background:var(--muted)}
+
+/* Filters */
+.filters{display:flex;gap:10px;margin-bottom:20px}
+
+/* Task list */
+.task-list{display:flex;flex-direction:column;gap:12px}
+.task{
+  background:var(--card);
+  padding:16px;
+  border-radius:10px;
+  box-shadow:0 1px 3px rgba(0,0,0,0.1);
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.task input[type="checkbox"]{width:18px;height:18px;cursor:pointer}
+.task .meta{flex:1}
+.task .title{font-weight:600;margin-bottom:4px}
+.task .category,.task .due{font-size:12px;color:var(--muted)}
+.task.completed .title{text-decoration:line-through;color:var(--muted)}
+.task .actions{display:flex;gap:8px}
+.task .actions button{background:transparent;color:var(--accent);padding:6px 10px;font-size:12px}
+.task .actions button.delete{color:var(--danger)}
+
+/* Pomodoro */
+.pomodoro-container{text-align:center;background:var(--card);padding:40px;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.1)}
+.timer-display{font-size:72px;font-weight:700;color:var(--accent);margin-bottom:8px}
+.timer-label{font-size:18px;color:var(--muted);margin-bottom:24px}
+.timer-controls{display:flex;gap:12px;justify-content:center;margin-bottom:24px}
+.pomodoro-settings{display:flex;gap:20px;justify-content:center;margin-bottom:16px}
+.pomodoro-settings label{font-size:14px}
+.pomodoro-settings input{width:60px;margin-left:8px}
+.pomodoro-stats{font-size:14px;color:var(--muted)}
+
+/* Habits */
+.habit-list{display:flex;flex-direction:column;gap:12px}
+.habit{
+  background:var(--card);
+  padding:16px;
+  border-radius:10px;
+  box-shadow:0 1px 3px rgba(0,0,0,0.1);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.habit .name{font-weight:600}
+.habit .streak{font-size:12px;color:var(--muted)}
+.habit button{background:var(--success);padding:8px 12px;font-size:12px}
+
+/* Notes */
+.notes-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.note{
+  background:var(--card);
+  padding:16px;
+  border-radius:10px;
+  box-shadow:0 1px 3px rgba(0,0,0,0.1);
+}
+.note .note-title{font-weight:700;margin-bottom:8px}
+.note .note-content{font-size:14px;color:var(--muted);margin-bottom:12px}
+.note .note-date{font-size:11px;color:var(--muted)}
+.note button{background:var(--danger);padding:6px 10px;font-size:12px}
+
+/* Timetable */
+.timetable-list{display:flex;flex-direction:column;gap:12px}
+.tt-item{
+  background:var(--card);
+  padding:16px;
+  border-radius:10px;
+  box-shadow:0 1px 3px rgba(0,0,0,0.1);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.tt-item .info{flex:1}
+.tt-item .day{font-weight:700;margin-bottom:4px}
+.tt-item .time{font-size:13px;color:var(--muted)}
+.tt-item button{background:var(--danger);padding:6px 10px;font-size:12px}
+
+/* Responsive */
+@media (max-width:768px){
+  .sidebar{width:200px}
+  .main-content{padding:20px}
+  .timer-display{font-size:48px}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:520px){
+  .app-container{flex-direction:column}
+  .sidebar{width:100%;padding:12px 0}
+  .nav-menu{display:flex;overflow-x:auto;padding:0}
+  .nav-link{padding:10px 16px;white-space:nowrap}
+  .main-content{padding:16px}
+  .task-form,.habit-form,.notes-form,.timetable-form{flex-direction:column}
+  .stats-grid{grid-template-columns:1fr}
+}
